@@ -10,6 +10,9 @@ A projeto foi desenvolvido atendendo os requisitos propostos no teste [link](htt
 * ActiveMQ embedded;
 * A integracao com o servico externo para consulta de CPF foi feito usando o OpenFeign;
 
+## Exectando a aplicacao:
+* Para executar a aplicacao basta rodar comando "./gradlew bootRun" (lunix) ou ".\gradlew bootRun" (windows) no terminal.
+
 
 ### Consideracoes:
 
