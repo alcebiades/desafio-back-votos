@@ -18,11 +18,14 @@ public class UserDTO {
     private Long id;
     @NotBlank(message = "O campo name e obrigatorio")
     private String name;
+    @NotBlank(message = "O campo CPF e obrigatorio")
+    private String cpf;
 
     public User toEntity() {
         return User.builder()
                 .id(id)
                 .name(name)
+                .cpf(cpf)
                 .build();
     }
 }

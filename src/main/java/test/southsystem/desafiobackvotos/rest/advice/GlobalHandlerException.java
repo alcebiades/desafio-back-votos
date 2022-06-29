@@ -13,14 +13,36 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import test.southsystem.desafiobackvotos.model.exception.AgendaExpiredException;
+import test.southsystem.desafiobackvotos.model.exception.CpfInvalidException;
 import test.southsystem.desafiobackvotos.model.exception.NotFoundException;
 import test.southsystem.desafiobackvotos.model.exception.UserAlreadyVotedException;
+import test.southsystem.desafiobackvotos.model.exception.UserNotAllowedToVotedException;
 
 /**
  * Classe responsavel por gerenciar as excecoes
  */
 @RestControllerAdvice
 public class GlobalHandlerException {
+
+    @ExceptionHandler(value = UserNotAllowedToVotedException.class)
+    public ResponseEntity<Map<String, Object>> handler(UserNotAllowedToVotedException ex, WebRequest request) {
+
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("message", ex.getMessage());
+
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = CpfInvalidException.class)
+    public ResponseEntity<Map<String, Object>> handler(CpfInvalidException ex, WebRequest request) {
+
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("message", ex.getMessage());
+
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler(value = AgendaExpiredException.class)
     public ResponseEntity<Map<String, Object>> handler(AgendaExpiredException ex, WebRequest request) {

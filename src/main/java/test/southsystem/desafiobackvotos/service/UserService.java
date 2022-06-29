@@ -15,12 +15,18 @@ import test.southsystem.desafiobackvotos.repository.entity.User;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final CpfService cpfService;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, CpfService cpfService) {
         this.userRepository = userRepository;
+        this.cpfService = cpfService;
     }
 
     public UserDTO createUser(final UserDTO userDTO) {
+
+        cpfService.validateCpf(userDTO.getCpf());
+
+        userDTO.setCpf(cpfService.sanitizeCpf(userDTO.getCpf()));
 
         final User user = userRepository.save(userDTO.toEntity());
 
